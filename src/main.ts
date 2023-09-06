@@ -4,7 +4,7 @@
  * @Autor: liushuhao
  * @Date: 2022-11-03 22:18:20
  * @LastEditors: liushuhao
- * @LastEditTime: 2022-11-29 23:56:07
+ * @LastEditTime: 2023-09-06 16:37:06
  */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -18,6 +18,6 @@ async function bootstrap() {
   app.setGlobalPrefix('blog/api');
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
-  await app.listen(8888);
+  await app.listen(4000);
 }
 bootstrap();

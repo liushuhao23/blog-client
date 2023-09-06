@@ -4,7 +4,7 @@
  * @Autor: liushuhao
  * @Date: 2022-11-03 22:18:20
  * @LastEditors: liushuhao
- * @LastEditTime: 2022-11-28 17:14:36
+ * @LastEditTime: 2023-09-06 16:44:47
  */
 import {
   Body,
@@ -23,24 +23,21 @@ import { RedisCacheService } from 'src/database/redisdb/redis-cache.service';
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
-    private userService: UserService,
-    private redisCacheService: RedisCacheService,
+    private readonly appService: AppService, // private userService: UserService, // private redisCacheService: RedisCacheService,
   ) {}
-
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
-  @Post('logout')
-  @UseGuards(AuthGuard('jwt'))
-  async singout(@Body() body) {
-    const UserInfo = await this.userService.findOne('', body.userId);
-    if (UserInfo) {
-      await this.redisCacheService.cacheDelet(UserInfo.username);
-    } else {
-      throw new HttpException('没有此用户', HttpStatus.FORBIDDEN);
-    }
-    return {};
-  }
+  // @Post('logout')
+  // @UseGuards(AuthGuard('jwt'))
+  // async singout(@Body() body) {
+  //   const UserInfo = await this.userService.findOne('', body.userId);
+  //   if (UserInfo) {
+  //     await this.redisCacheService.cacheDelet(UserInfo.username);
+  //   } else {
+  //     throw new HttpException('没有此用户', HttpStatus.FORBIDDEN);
+  //   }
+  //   return {};
+  // }
 }
