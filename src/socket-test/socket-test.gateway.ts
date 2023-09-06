@@ -4,7 +4,7 @@
  * @Autor: liushuhao
  * @Date: 2023-09-05 13:48:16
  * @LastEditors: liushuhao
- * @LastEditTime: 2023-09-06 16:38:49
+ * @LastEditTime: 2023-09-06 23:03:30
  */
 import {
   WebSocketGateway,
@@ -17,10 +17,15 @@ import { CreateSocketTestDto } from './dto/create-socket-test.dto';
 import { UpdateSocketTestDto } from './dto/update-socket-test.dto';
 import { Logger } from '@nestjs/common';
 import { Socket } from 'socket.io';
+import * as url from 'url';
 
 @WebSocketGateway(8000, { cors: true, maxHttpBufferSize: '1e8' })
 export class SocketTestGateway {
   constructor(private readonly socketTestService: SocketTestService) {}
+
+  handleConnection(client: any) {
+    console.log('有人链接了' + client.id);
+  }
 
   @SubscribeMessage('createSocketTest')
   create(@MessageBody() createSocketTestDto: CreateSocketTestDto) {
@@ -52,8 +57,12 @@ export class SocketTestGateway {
 
   //简单确认信息示例
   @SubscribeMessage('socketTest')
-  socketTest(@MessageBody() data: any) {
-    Logger.log('客户端发送的数据：' + JSON.stringify(data));
+  socketTest(client: any, payload: any) {
+    console.log('输出payload', payload);
+    console.log('输出client.request.url', client.request.url);
+    const roomid = url.parse(client.request.url, true).query.roomid;
+    console.log('输出', url.parse(client.request.url, true));
+    // Logger.log('客户端发送的数据：' + JSON.stringify(data));
     return {
       msg1: '测试1',
       msg2: '测试2',
