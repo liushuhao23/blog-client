@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-11-11 09:18:41
  */
 import * as dotenv from 'dotenv';
-import envFilePath from '../../../config/index';
+import envFilePath from '../../../server/config/index';
 import { v4 as uuid } from 'uuid';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn'; // 导入本地化语言

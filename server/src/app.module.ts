@@ -13,7 +13,7 @@ import { UserModule } from './user/user.module';
 import { LoggerMiddleware } from './core/middleware/logger/logger.middleware';
 import { ArticleModule } from './article/article.module';
 import { ConfigModule } from '@nestjs/config';
-import envFilePath from '../config/index';
+import envFilePath from '../server/config/index';
 import { DBRootModule } from './database/index';
 import { LoginModule } from './login/login.module';
 import { AuthModule } from './auth/auth.module';

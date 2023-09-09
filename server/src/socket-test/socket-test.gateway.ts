@@ -4,7 +4,7 @@
  * @Autor: liushuhao
  * @Date: 2023-09-05 13:48:16
  * @LastEditors: liushuhao
- * @LastEditTime: 2023-09-08 17:42:22
+ * @LastEditTime: 2023-09-09 23:27:02
  */
 import {
   WebSocketGateway,
@@ -76,12 +76,18 @@ export class SocketTestGateway {
   @SubscribeMessage('joinRoom')
   joinRoom(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
     const { id } = data;
+    console.log('输出id', id);
     client.join(id);
+    console.log('输出clientsCount', this.server.engine.clientsCount);
     // client.to(id).emit('joinRoom', `你已经连接了${id}房间`);
-    return {
-      data: '',
-      message: `客户端 ${client.id} 连接成功`,
-    };
+  }
+
+  @SubscribeMessage('sendMessage')
+  senMessage(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
+    const { id, message } = data;
+    console.log('输出id', id);
+    client.to(id).emit('message', message);
+    // client.to(id).emit('joinRoom', `你已经连接了${id}房间`);
   }
 
   //转发示例
